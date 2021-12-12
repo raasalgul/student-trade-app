@@ -49,20 +49,17 @@ const useStyles = makeStyles((theme) => ({
       container 
       spacing={2}
       >
-        <Grid item>
+          <Grid item>
         <img src={"data:image/png;base64,"+props.picture.data} className={classes.image} alt="logo" />
         <h1><span className={classes.heading}>{props.name}</span></h1>
         </Grid>
         <Grid item>
-            <div className={classes.right}>
-          <h1><span className={classes.heading}>Age: </span>{props.age}</h1>
-          <h1><span className={classes.heading}>Area: </span>{props.area}</h1>
-          <h1><span className={classes.heading}>EIRCode: </span>{props.eirCode}</h1>
-          <h1><span className={classes.heading}>Duration: </span>{props.duration}</h1>
+        <h1><span className={classes.heading}>{props.name}</span></h1>
+          <h1><span className={classes.heading}>Description: </span>{props.age}</h1>
+          <h1><span className={classes.heading}>Duration: </span>{props.area}</h1>
+          <h1><span className={classes.heading}>Institution: </span>{props.eirCode}</h1>
           <h1><span className={classes.heading}>Availability: </span>{props.availability}</h1>
-          <h1><span className={classes.heading}>Education: </span>{props.education}</h1>
-          <h1><span className={classes.heading}>Work: </span>{props.work}</h1>
-          <h1><span className={classes.heading}>Rent: </span>{props.rent}</h1>
+          <h1><span className={classes.heading}>Price: </span>{props.rent}</h1>
           {!isIntrested?
           <Button variant="contained"
           onClick={()=>{setIsIntrested(true)}}
@@ -72,8 +69,8 @@ const useStyles = makeStyles((theme) => ({
         </Button>
         :
         <Grid container>
-          <Grid item>
-          <TextField></TextField>
+          <Grid item xs={12}>
+          <TextField ></TextField>
           </Grid>
           <Grid item container spacing={3} justifyContent="center">
             <Grid item>
@@ -93,7 +90,6 @@ const useStyles = makeStyles((theme) => ({
           </Grid>
         </Grid>
         }
-          </div>
           </Grid>
           </Grid>
         </Paper>

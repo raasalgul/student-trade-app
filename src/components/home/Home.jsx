@@ -3,6 +3,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from "../themes/Theme"
 import React, { useState } from 'react';
 import Acommodation from './Acommodation'
+import Job from "./Job"
+
 import Roomate from './Roomate'
 
 export default function Home(){
@@ -18,7 +20,7 @@ export default function Home(){
         </Grid>
         <Grid container alignItems="center" justifyContent="center">
         <Grid item>
-        {isAcommdation?<Acommodation/>:<Roomate/>}
+        {isAcommdation?<Job/>:<Roomate/>}
         </Grid>
         </Grid>
     </ThemeProvider>)
