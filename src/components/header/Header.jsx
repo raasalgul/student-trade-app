@@ -45,6 +45,9 @@ function Header(props){
             <Grid item xs={2} md={1}>
             <Link to="/about" className={classes.link_style}><p>About</p></Link>
             </Grid>
+            <Grid item xs={2} md={1}>
+            <Link to="/post" className={classes.link_style}><p>Post</p></Link>
+            </Grid>
             <Grid item xs={4} md={2} lg={1}>
             <Link to="/contact-us" className={classes.link_style}><p>Contact Us</p></Link>
             </Grid>

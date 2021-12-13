@@ -38,6 +38,10 @@ function App() {
             path={tabs.About.url}
             component={tabs.About.file}
           />
+          <Route
+          path = {tabs.Post.url}
+          component={tabs.Post.file}
+          />
         <Route
             path={tabs.Contact_us.url}
             component={tabs.Contact_us.file}

@@ -10,6 +10,8 @@ import { Button, Box, Grid, IconButton, TextField, Paper } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { UserInfoContext } from "../../App"
+import {userInfo} from "../constants/Constant"
+import authHeader from "../services/auth-header"
 
 const useStyles = makeStyles({
   textFields: {
@@ -21,15 +23,14 @@ const useStyles = makeStyles({
 export default function UserInfo() {
 
   const [name,setname]=useState("");
-  const [age,setage]=useState("");
   const [course,setcourse]=useState("");
-  const [service,setservice]=useState("");
   const [phoneNumber,setphoneNumber]=useState("");
   const [emailId,setemailId]=useState("");
   const [profilePic,setprofilePic]=useState();
   const [institution,setinstitution]=useState("");
   const [address,setaddress]=useState("");
-  const [paymentInfo,setpaymentInfo]=useState("");
+  const [verificationDoc,setVerificationDoc]=useState("");
+
 
 
   const [data, setData] = useState({});
@@ -37,21 +38,36 @@ export default function UserInfo() {
   const userInfoContext = useContext(UserInfoContext)
   useEffect(() => {
     let serverData = {
-      name: 'Sathish',
-      age: '25',
-      course: 'Ms in Cloud Computing',
-      service: 'Roomate',
-      phoneNumber: '123456789',
-      emailId: 'sats@gmail.com',
-      profilePic: 'http:/url',
-      verificationPic: 'http:/url',
-      institution: 'XYZ',
-      address: 'abc street',
-      paymentInfo: 'Cash'
-    }
+     }
+     let requestData={"email":userInfoContext.userInfoState.name,
+    "institution":userInfoContext.userInfoState.institution}
+    fetch(`${userInfo}/get-user`,
+    { 
+        method: 'POST', 
+      mode: 'cors', 
+      cache: 'no-cache', 
+      credentials: 'same-origin', 
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer', 
+      body: JSON.stringify(requestData) ,
+      headers: {...authHeader(),'Content-Type':'application/json'} })
+    
+    .then((response) => {
+      return response.json();
+    })
+    .then((myJson) => {
+      serverData = myJson.Item
+      setaddress(serverData.address)
+      setemailId(serverData.email)
+      setinstitution(serverData.institution)
+      setphoneNumber(serverData.phoneNumber)
+      setprofilePic(serverData.pictureUrl)
+      setVerificationDoc(serverData.verificationDoc)
+      setname(serverData.name)
+    })
+
     setData(serverData)
-    setservice(serverData.service)
-    userInfoContext.userInfoDispatch({ type: 'userState', payload: { ...userInfoContext.userInfoState, "service": serverData.service } })
+    // userInfoContext.userInfoDispatch({ type: 'userState', payload: { ...userInfoContext.userInfoState, "service": serverData.service } })
   }, []
   )
 
@@ -155,14 +171,6 @@ export default function UserInfo() {
               disabled={!isEdit}
               value={address}
               onChange={(e)=>{setaddress(e.target.value)}}
-            />
-            <TextField
-              label="Payment Info"
-              fullWidth
-              margin="normal"
-              disabled={!isEdit}
-              value={paymentInfo}
-              onChange={(e)=>{setpaymentInfo(e.target.value)}}
             />
             <TextField
               label="Email Id"

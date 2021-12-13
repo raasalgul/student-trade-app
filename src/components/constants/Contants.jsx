@@ -4,6 +4,7 @@ import Home from "../home/Home";
 import UserInfo from "../profile/UserInfo";
 import SignIn from "../sign-in/SignIn";
 import SignUp from "../sign-up/SignUp";
+import Accommodation from "../addPost/Accommodation";
 
 export const tabs={
     "Home":{
@@ -15,6 +16,11 @@ export const tabs={
         name:"Profile",
         url:"/profile",
         file:UserInfo
+    },
+    "Post":{
+        name:"Post",
+        url:"/post",
+        file:Accommodation
     },
     "About":{
         name:"About",

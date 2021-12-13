@@ -38,7 +38,7 @@ console.log(message)
       AuthService.login(username,password).then(
         (res) => {
           console.log(res.token)
-          userInfoContext.userInfoDispatch({type:'userState',payload:{"userId":res.token,"name":username}})
+          userInfoContext.userInfoDispatch({type:'userState',payload:{"userId":res.token,"name":username,"institution":res.institution}})
           props.history.push("/home");
          // window.location.reload();
         },
