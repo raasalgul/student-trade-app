@@ -1,2 +1,4 @@
-export let serviceURLHost=`http://54.162.18.116:8089`
-// export let serviceURLHost=`http://localhost:8089`
+
+export let userLogin = `http://ncistudenttradeapplogin-env.eba-wduhwdfd.us-east-1.elasticbeanstalk.com`
+
+export let postInfo = `http://Ncistudenttradeapppostinfo-env.eba-pwd8tskb.us-east-1.elasticbeanstalk.com`

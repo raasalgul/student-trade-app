@@ -53,9 +53,8 @@ const useStyles = makeStyles((theme) => ({
         <h1><span className={classes.heading}>{props.name}</span></h1>
         <h1><span className={classes.heading}>Subject: </span>{props.subject}</h1>
           <h1><span className={classes.heading}>Description: </span>{props.description}</h1>
-          <h1><span className={classes.heading}>Duration: </span>{props.duration}</h1>
           <h1><span className={classes.heading}>Institution: </span>{props.institution}</h1>
-          <h1><span className={classes.heading}>Availability: </span>{props.availability}</h1>
+          <h1><span className={classes.heading}>Availability: </span>{props.Availability}</h1>
           {!isIntrested?
           <Button variant="contained"
           onClick={()=>{setIsIntrested(true)}}

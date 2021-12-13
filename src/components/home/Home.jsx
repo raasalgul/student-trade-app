@@ -1,15 +1,55 @@
 import { Grid } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "../themes/Theme"
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Acommodation from './Acommodation'
 import Job from "./Job"
 import OtherService from "./OtherService"
 import Product from "./Product"
 import QandA from "./QandA"
 import { Select,MenuItem } from '@material-ui/core';
+import {postInfo} from '../constants/Constant'
+import authHeader from "../services/auth-header"
 export default function Home(){
+
     const [service,setService] =useState('Accommodation')
+    const [accommodationData,setAccommodationData] = useState([])
+    const [jobData,setJobData] = useState([])
+    const [otherServiceData,setOtherServiceData] = useState([])
+    const [productData,setProductData] = useState([])
+    const [qAndAData,setQAndAData] = useState([])
+    useEffect(()=>{
+      //  fetch(`${postInfo}/get-all-postInfo`, {
+      //   method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      //   mode: 'cors', // no-cors, *cors, same-origin
+      //   cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      //   credentials: 'same-origin', // include, *same-origin, omit
+      //   headers:{'Content-Type':'application/json'},
+      //   redirect: 'follow', // manual, *follow, error
+      //   referrerPolicy: 'no-referrer', // no-referrer, *client
+      // }).then(response => response.json())
+      // .then((data) => {
+      //     console.log("inside response")
+      //     let token = JSON.stringify(data)
+      //     console.log(token)
+      // })
+      // .catch((error) => {
+      //     console.log(error);
+      // });
+      fetch(`${postInfo}/get-all-postInfo`,{ headers: authHeader() }).then((response) => {
+        return response.json();
+      })
+      .then((myJson) => {
+        // setAccommodationData(myJson[]);
+        console.log(myJson.accommodation)
+        setAccommodationData(myJson.accommodation)
+        console.log(accommodationData)
+        setJobData(myJson.jobTable)
+        setOtherServiceData(myJson.otherServicesTable)
+        setProductData(myJson.oldProductsTable)
+        setQAndAData(myJson.qAndATable)
+      })
+    },[service])
     return(<ThemeProvider theme={theme}>
         <Grid container spacing={2}>
         <Grid item>
@@ -33,11 +73,11 @@ export default function Home(){
         <Grid item>
         {/* {isAcommdation?<QandA/>:<Product/>} */}
         {service !==null && service !==undefined ? 
-        service === 'Accommodation' ? <Acommodation/>:
-        service === 'Job' ? <Job/>:
-        service === 'Other Service' ? <OtherService/>:
-        service === 'Product' ? <Product/>:
-        service === 'Q and A' ? <QandA/>:null
+        service === 'Accommodation' ? <Acommodation accommodationData={accommodationData}/>:
+        service === 'Job' ? <Job jobData={jobData}/>:
+        service === 'Other Service' ? <OtherService otherServiceData={otherServiceData}/>:
+        service === 'Product' ? <Product productData={productData}/>:
+        service === 'Q and A' ? <QandA qAndAData={qAndAData}/>:null
         :null}
         </Grid>
         </Grid>

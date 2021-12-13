@@ -23,12 +23,13 @@ export default function SignIn(props) {
   const [email,setEmail]=useState('');
   const [toastMsg,setToastMsg] = useState('')
   const [isToast,setIsToast] = useState(false)
+  const [institution,setInstitution] = useState('');
     let error=React.useState(false);
     const classes=useStyle();
 
     function handleSubmit(){
       if(password===retypePassword){
-      AuthService.register(username,password,email).then(
+      AuthService.register(username,password,email,institution).then(
         (res) => {
           console.log(res)
           props.history.push("/sign-in");
@@ -90,6 +91,16 @@ export default function SignIn(props) {
           label="Email Id"
           onChange={(e)=>{
             setEmail(e.target.value)
+          }}
+        />
+        </Grid>
+        <Grid item>
+        <TextField
+          error={error[0]}
+          id="institution"
+          label="institution"
+          onChange={(e)=>{
+            setInstitution(e.target.value)
           }}
         />
         </Grid>

@@ -54,7 +54,7 @@ function Header(props){
             >
             <Button 
             style={{ backgroundColor: theme.palette.secondary.main,
-            color:theme.palette.primary.light,minHeight:'57px'}}
+                color:theme.palette.primary.main,minHeight:'57px'}}
             onClick={()=>{
                 setIsAvatarClick((state)=>{return !state});
             }}

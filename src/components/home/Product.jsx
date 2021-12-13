@@ -6,29 +6,18 @@ import { useEffect, useState } from 'react';
 import authHeader from '../services/auth-header';
 import {serviceURLHost} from "../constants/Constant"
 
-export default function Profile(){
-  const [accommodationData,setAccommodationData]=useState([]);
-    useEffect(()=>{
-      fetch(`${serviceURLHost}/nci/accomodation/retrieve`,{ headers: authHeader() }).then((response) => {
-        return response.json();
-      })
-      .then((myJson) => {
-        setAccommodationData(myJson);
-        });
-       },[]
-       )
+export default function Product(props){
     return(<ThemeProvider theme={theme}>
           <Grid container alignItems="center" justifyContent="center" spacing={1}>
         <Grid container alignItems="center" justifyContent="center" item xs={12} spacing={3}>
       {
-       accommodationData.length>0? accommodationData.map((value)=>{
+       props.productData.length>0? props.productData.map((value)=>{
     return <Card
     name={value.name}
-    description={value.age}
-    duration={value.duration}
-    availability={value.availablity}
-    institution={value.education}
-    price={value.rent}
+    description={value.description}
+    Availability={value.Availability}
+    institution={value.institution}
+    price={value.price}
     picture={value.picture}
     />
        }):null

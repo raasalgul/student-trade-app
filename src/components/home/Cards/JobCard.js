@@ -51,12 +51,12 @@ const useStyles = makeStyles((theme) => ({
       >
         <Grid item>
         <h1><span className={classes.heading}>{props.name}</span></h1>
-          <h1><span className={classes.heading}>Description: </span>{props.age}</h1>
-          <h1><span className={classes.heading}>Duration: </span>{props.area}</h1>
-          <h1><span className={classes.heading}>Institution: </span>{props.eirCode}</h1>
-          <h1><span className={classes.heading}>Location: </span>{props.duration}</h1>
-          <h1><span className={classes.heading}>Availability: </span>{props.availability}</h1>
-          <h1><span className={classes.heading}>Salary: </span>{props.rent}</h1>
+          <h1><span className={classes.heading}>Description: </span>{props.description}</h1>
+          <h1><span className={classes.heading}>Duration: </span>{props.duration}</h1>
+          <h1><span className={classes.heading}>Institution: </span>{props.institution}</h1>
+          <h1><span className={classes.heading}>Location: </span>{props.location}</h1>
+          <h1><span className={classes.heading}>Availability: </span>{props.Availability}</h1>
+          <h1><span className={classes.heading}>Salary: </span>{props.salary}</h1>
           {!isIntrested?
           <Button variant="contained"
           onClick={()=>{setIsIntrested(true)}}

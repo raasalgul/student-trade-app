@@ -33,7 +33,7 @@ export default function UserInfo() {
 
 
   const [data, setData] = useState({});
-  const [isEdit, setIsEdit] = useState(true);
+  const [isEdit, setIsEdit] = useState(false);
   const userInfoContext = useContext(UserInfoContext)
   useEffect(() => {
     let serverData = {
@@ -63,13 +63,58 @@ export default function UserInfo() {
   const verifyUser = (event) => {
     console.log("Handle verify");
   }
-
+  async function onSave() {
+    // let requestData={...data};
+    // requestData.age=age;
+    // requestData.course=course;
+    // requestData.services=service;
+    // console.log(course)
+    // console.log(requestData)
+    // requestData.phoneNumber=phoneNumber;
+    // let header={...authHeader(),'Content-Type':'application/json'}
+    // const response = await fetch(`${serviceURLHost}/nci/user/put-info`, {
+    //   method: 'PUT', 
+    //   mode: 'cors', 
+    //   cache: 'no-cache', 
+    //   credentials: 'same-origin', 
+    //   headers: header,
+    //   redirect: 'follow',
+    //   referrerPolicy: 'no-referrer', 
+    //   body: JSON.stringify(requestData) 
+    // });
+    // return await response.json().then(()=>{
+    //  setData(data)
+    //  setAge(data.age)
+    //  setCourse(data.course)
+    //  setService(data.service)
+    //  setPhoneNumber(data.phoneNumber)
+    //  setIsEdit((previous)=>!previous)
+    // });
+    setIsEdit((previous)=>!previous)
+  }
   const classes = useStyles();
   return (<ThemeProvider theme={theme}>
     <Grid container spacing={2}>
       <Grid item xs={8}>
         <Paper style={{ minHeight: "600px", margin: "10px", textAlign: "left", padding: "10px" }}>
+          <Grid container justifyContent={"space-between"}>
+            <Grid item>
           <Typography variant="h5" component="h2" style={{ display: 'inline-block' }} color="textSecondary">Profile</Typography>
+          </Grid>
+          <Grid item>
+          {!isEdit?
+          <IconButton onClick={()=>{setIsEdit((previous)=>!previous)}}>
+             <EditIcon>
+               </EditIcon>
+               </IconButton>:
+               <Grid>
+               <Button variant="contained" style={{backgroundColor:theme.palette.secondary.main, marginRight:"5px", color:theme.palette.primary.main}} 
+               onClick={onSave}
+               >Save</Button>
+               <Button variant="contained" style={{backgroundColor:theme.palette.secondary.main, color:theme.palette.primary.main}} onClick={()=>{setIsEdit((previous)=>!previous)}}>Cancel</Button>
+               </Grid>}
+          </Grid>
+          </Grid>
           <Box component="form" noValidate autoComplete="off">
             <TextField
               label="Name"
@@ -146,6 +191,7 @@ export default function UserInfo() {
           <div style={{ display: 'flex', justifyContent: 'center', marginTop:"20px" }}>
           <Button
             onClick={verifyUser}
+            style={{backgroundColor:theme.palette.primary.main}}
             variant="contained"
           >
             Verify Student

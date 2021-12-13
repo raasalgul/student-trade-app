@@ -1,7 +1,7 @@
 import About from "../about/About";
 import ContactUs from "../contact_us/ContactUs";
 import Home from "../home/Home";
-import Profile from "../profile/Profile";
+import UserInfo from "../profile/UserInfo";
 import SignIn from "../sign-in/SignIn";
 import SignUp from "../sign-up/SignUp";
 
@@ -14,7 +14,7 @@ export const tabs={
     "Profile":{
         name:"Profile",
         url:"/profile",
-        file:Profile
+        file:UserInfo
     },
     "About":{
         name:"About",

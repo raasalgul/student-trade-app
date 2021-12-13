@@ -33,11 +33,12 @@ export default function SignIn(props) {
 
     // form.validateAll();
 console.log(message.length)
+console.log(message)
     if (message.length === 0) {
       AuthService.login(username,password).then(
         (res) => {
-          console.log(res)
-          userInfoContext.userInfoDispatch({type:'userState',payload:{"userId":res.accessToken,"name":username}})
+          console.log(res.token)
+          userInfoContext.userInfoDispatch({type:'userState',payload:{"userId":res.token,"name":username}})
           props.history.push("/home");
          // window.location.reload();
         },
