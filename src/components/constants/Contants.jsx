@@ -4,7 +4,7 @@ import Home from "../home/Home";
 import UserInfo from "../profile/UserInfo";
 import SignIn from "../sign-in/SignIn";
 import SignUp from "../sign-up/SignUp";
-import Accommodation from "../addPost/Accommodation";
+import Job from "../addPost/Job";
 
 export const tabs={
     "Home":{
@@ -20,7 +20,7 @@ export const tabs={
     "Post":{
         name:"Post",
         url:"/post",
-        file:Accommodation
+        file:Job
     },
     "About":{
         name:"About",
