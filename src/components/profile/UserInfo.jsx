@@ -34,12 +34,13 @@ export default function UserInfo() {
 
   const [data, setData] = useState({});
   const [isEdit, setIsEdit] = useState(false);
+  let requestData={}
   const userInfoContext = useContext(UserInfoContext)
   useEffect(() => {
     let serverData = {
      }
-     let requestData={"email":userInfoContext.userInfoState.name,
-    "institution":userInfoContext.userInfoState.institution}
+      requestData={"email":userInfoContext.userInfoState.name,
+     "institution":userInfoContext.userInfoState.institution}
     fetch(`${userInfo}/get-user`,
     { 
         method: 'POST', 
@@ -77,8 +78,29 @@ export default function UserInfo() {
     console.log(event.target.value);
   };
 
-  const verifyUser = (event) => {
+  const verifyUser = async() => {
     console.log("Handle verify");
+    const formData = new FormData();
+      formData.append("institution",institution);
+      formData.append("file",verificationDoc);
+
+      let header={...authHeader()}
+      const response = await fetch(`${userInfo}/verification-doc`, {
+        method: 'POST', 
+        mode: 'cors', 
+        cache: 'no-cache', 
+        credentials: 'same-origin', 
+        headers: header,
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer', 
+        body: formData 
+      });
+      return await response.json().then(()=>{
+        // setIsEdit((previous)=>!previous)
+      }).catch(()=>{
+        // setIsEdit((previous)=>!previous)
+      });
+
   }
   async function onSave() {
     let requestData={...data};
@@ -110,7 +132,6 @@ export default function UserInfo() {
     //  setname(value.name)
      setIsEdit((previous)=>!previous)
     });
-    setIsEdit((previous)=>!previous)
   }
   const classes = useStyles();
   return (<ThemeProvider theme={theme}>
@@ -196,6 +217,9 @@ export default function UserInfo() {
           <div style={{ display: 'grid', marginTop: "60px" }}>
             <Typography variant="body1" component="div" style={{ display: 'inline-block' }}>Proof Documents</Typography>
             <TextField
+            onChange={(event)=>{
+              setVerificationDoc(event.target.files[0])
+            }}
               multiple
               type="file"
             />

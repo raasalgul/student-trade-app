@@ -7,6 +7,8 @@ import { useState } from "react";
 import { TextField } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import CancelIcon from '@mui/icons-material/Cancel';
+import {checkoutInfo} from "../../constants/Constant"
+import authHeader from "../../services/auth-header"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
   export default function Card(props)  {
     const classes = useStyles();
     const [isIntrested,setIsIntrested] = useState(false);
+    const [emailBody,setEmailBody] = useState('');
     return (
       <ThemeProvider theme={theme}>
         <Paper className={classes.paper}
@@ -72,7 +75,9 @@ const useStyles = makeStyles((theme) => ({
         :
         <Grid container>
           <Grid item>
-          <TextField></TextField>
+          <TextField onChange={(e)=>{
+              setEmailBody(e.target.value)
+          }}></TextField>
           </Grid>
           <Grid item container spacing={3} justifyContent="center">
             <Grid item>
@@ -84,7 +89,40 @@ const useStyles = makeStyles((theme) => ({
           </Grid>
           <Grid item>
           <Button variant="contained"
-          onClick={()=>{setIsIntrested(false)}}
+          onClick={()=>{
+            /**
+             * {
+    "name":"Flat at dublin 5",
+    "hash":"5f49657dd7d40252028594b85f3add6d12c61bf424528734d60f35cf",
+    "email":"k.sathishrsurya1@gmail.com",
+    "emailBody":"Im intrested in your property, Please contact me."
+}
+             */
+            let requestData ={
+              "name":props.name,
+              "hash":props.hash,
+              "email":props.email,
+              "emailBody": emailBody
+            };
+            fetch(`${checkoutInfo}/accommodation-cart`,
+            { 
+                method: 'POST', 
+              mode: 'cors', 
+              cache: 'no-cache', 
+              credentials: 'same-origin', 
+              redirect: 'follow',
+              referrerPolicy: 'no-referrer', 
+              body: JSON.stringify(requestData) ,
+              headers: {...authHeader(),'Content-Type':'application/json'} })
+
+            .then((response) => {
+              return response.json();
+            })
+            .then((myJson) => {
+            
+            })
+
+            setIsIntrested(false)}}
           style={{backgroundColor: theme.palette.secondary.main}}
           endIcon={<SendIcon />}
           >Email</Button>

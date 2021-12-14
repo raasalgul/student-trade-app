@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import {useState,useContext,useEffect} from 'react';
 import {UserInfoContext} from "../../App"
 import { useHistory } from "react-router-dom";
+import { Typography } from '@mui/material';
 
 
 const useStyle=makeStyles({
@@ -43,10 +44,10 @@ function Header(props){
             <Link to="/profile" className={classes.link_style}><p>Profile</p></Link>
             </Grid>
             <Grid item xs={2} md={1}>
-            <Link to="/about" className={classes.link_style}><p>About</p></Link>
+            <Link to="/post" className={classes.link_style}><p>Post</p></Link>
             </Grid>
             <Grid item xs={2} md={1}>
-            <Link to="/post" className={classes.link_style}><p>Post</p></Link>
+            <Link to="/about" className={classes.link_style}><p>About</p></Link>
             </Grid>
             <Grid item xs={4} md={2} lg={1}>
             <Link to="/contact-us" className={classes.link_style}><p>Contact Us</p></Link>
@@ -66,6 +67,9 @@ function Header(props){
             </Grid>
             </Grid>
         </Grid> 
+        <Grid>
+                <Typography>Hi Sathish</Typography>
+            </Grid>
         {isAvatarClick?
        <Grid container justifyContent="flex-end">
            <Button variant="contained" onClick={()=>{

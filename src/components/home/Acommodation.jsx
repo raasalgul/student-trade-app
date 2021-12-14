@@ -23,6 +23,8 @@ let Accommodation = (props)=>{
     description={value.description}
     rent={value.rent}
     picture={value.picture}
+    email = {value.email}
+    hash = {value.hash}
     />
        }):null
       }
