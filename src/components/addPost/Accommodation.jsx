@@ -6,11 +6,26 @@ import {postInfo} from "../constants/Constant"
 import { Grid } from '@mui/material';
 import AccommodationCard from "./Cards/AccommodationCard"
 import { UserInfoContext } from "../../App"
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Button } from '@mui/material';
+
+
+
+const useStyles = makeStyles((theme) => ({
+icon:{
+  '& .MuiButton-endIcon':{
+    marginLeft: 0,
+    marginRight: 0
+  }
+}
+}))
 
 export default function AccommodationUpdate(){
   const [data,setData]= useState([]
   );
   const userInfoContext = useContext(UserInfoContext)
+
+  const classes =useStyles();
 
   useEffect(()=>{
     // fetch(`${userInfo}/get-postInfo`,{ headers: authHeader() }).then((response) => {
@@ -40,15 +55,16 @@ export default function AccommodationUpdate(){
      },[]
      )
      return(<ThemeProvider theme={theme}>
-        <Grid container alignItems="center" justifyContent="center" spacing={1}>
-      <Grid container alignItems="center" justifyContent="center" item xs={12} spacing={3}>
+        <Grid container alignItems="center" justifyContent="center">
+      <Grid item container alignItems="center" justifyContent="center" item xs={12}>
       {
           data.map((value)=>{
               { console.log(value)}
              return (<AccommodationCard area = {value.area}
+              name = {value.name}
               eirCode = {value.eirCode}
               duration = {value.duration}
-              availablity = {value.availablity}
+              availability = {value.availability}
               picture = {value.picture}
               rent = {value.rent}
               institution = {value.institution}
@@ -56,6 +72,20 @@ export default function AccommodationUpdate(){
               />)
           })
             }
+          <Button variant="contained"
+          onClick={()=>{
+            let val =[... data]
+
+            let newAdd = {
+
+            }
+            val.push(newAdd)
+            setData(val)
+          }}
+          className={classes.icon}
+          style={{backgroundColor: theme.palette.secondary.main}}
+          endIcon={<AddCircleIcon />}
+          ></Button>
         </Grid>
          </Grid>
         </ThemeProvider>)

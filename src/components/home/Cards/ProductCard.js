@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
       spacing={2}
       >
           <Grid item>
-        <img src={"data:image/png;base64,"+props.picture.data} className={classes.image} alt="logo" />
+        <img src={props.picture} className={classes.image} alt="logo" />
         <h1><span className={classes.heading}>{props.name}</span></h1>
         </Grid>
         <Grid item>

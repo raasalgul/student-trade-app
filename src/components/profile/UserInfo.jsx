@@ -23,15 +23,14 @@ const useStyles = makeStyles({
 export default function UserInfo() {
 
   const [name,setname]=useState("");
-  const [course,setcourse]=useState("");
-  const [phoneNumber,setphoneNumber]=useState("");
+  const [course,setCourse]=useState("");
+  const [phoneNumber,setPhoneNumber]=useState("");
   const [emailId,setemailId]=useState("");
   const [profilePic,setprofilePic]=useState();
   const [institution,setinstitution]=useState("");
   const [address,setaddress]=useState("");
   const [verificationDoc,setVerificationDoc]=useState("");
-
-
+ 
 
   const [data, setData] = useState({});
   const [isEdit, setIsEdit] = useState(false);
@@ -57,10 +56,12 @@ export default function UserInfo() {
     })
     .then((myJson) => {
       serverData = myJson.Item
+      setData(serverData)
       setaddress(serverData.address)
+      setCourse(serverData.course)
       setemailId(serverData.email)
       setinstitution(serverData.institution)
-      setphoneNumber(serverData.phoneNumber)
+      setPhoneNumber(serverData.phoneNumber)
       setprofilePic(serverData.pictureUrl)
       setVerificationDoc(serverData.verificationDoc)
       setname(serverData.name)
@@ -80,32 +81,35 @@ export default function UserInfo() {
     console.log("Handle verify");
   }
   async function onSave() {
-    // let requestData={...data};
-    // requestData.age=age;
-    // requestData.course=course;
-    // requestData.services=service;
-    // console.log(course)
-    // console.log(requestData)
-    // requestData.phoneNumber=phoneNumber;
-    // let header={...authHeader(),'Content-Type':'application/json'}
-    // const response = await fetch(`${serviceURLHost}/nci/user/put-info`, {
-    //   method: 'PUT', 
-    //   mode: 'cors', 
-    //   cache: 'no-cache', 
-    //   credentials: 'same-origin', 
-    //   headers: header,
-    //   redirect: 'follow',
-    //   referrerPolicy: 'no-referrer', 
-    //   body: JSON.stringify(requestData) 
-    // });
-    // return await response.json().then(()=>{
-    //  setData(data)
-    //  setAge(data.age)
-    //  setCourse(data.course)
-    //  setService(data.service)
-    //  setPhoneNumber(data.phoneNumber)
-    //  setIsEdit((previous)=>!previous)
-    // });
+    let requestData={...data};
+    requestData.phoneNumber = requestData.phoneNumber!==phoneNumber?phoneNumber:requestData.phoneNumber;
+    requestData.address = requestData.address!==address?address:requestData.address;
+    requestData.course = requestData.course!==course?course:requestData.course;
+    console.log(course)
+    console.log(requestData)
+    let header={...authHeader(),'Content-Type':'application/json'}
+    const response = await fetch(`${userInfo}/update-user`, {
+      method: 'POST', 
+      mode: 'cors', 
+      cache: 'no-cache', 
+      credentials: 'same-origin', 
+      headers: header,
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer', 
+      body: JSON.stringify(requestData) 
+    });
+    return await response.json().then((value)=>{
+     setData(value)
+    //  setaddress(value.address)
+    //  setemailId(value.email)
+    //  setCourse(value.course)
+    //  setinstitution(value.institution)
+    //  setPhoneNumber(value.phoneNumber)
+    //  setprofilePic(value.pictureUrl)
+    //  setVerificationDoc(value.verificationDoc)
+    //  setname(value.name)
+     setIsEdit((previous)=>!previous)
+    });
     setIsEdit((previous)=>!previous)
   }
   const classes = useStyles();
@@ -154,7 +158,7 @@ export default function UserInfo() {
               margin="normal"
               disabled={!isEdit}
               value={course}
-              onChange={(e)=>{setcourse(e.target.value)}}
+              onChange={(e)=>{setCourse(e.target.value)}}
             />
             <TextField
               label="Phone Number"
@@ -162,7 +166,7 @@ export default function UserInfo() {
               margin="normal"
               disabled={!isEdit}
               value={phoneNumber}
-              onChange={(e)=>{setphoneNumber(e.target.value)}}
+              onChange={(e)=>{setPhoneNumber(e.target.value)}}
             />
             <TextField
               label="Address"

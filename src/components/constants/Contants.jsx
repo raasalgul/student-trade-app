@@ -5,6 +5,7 @@ import UserInfo from "../profile/UserInfo";
 import SignIn from "../sign-in/SignIn";
 import SignUp from "../sign-up/SignUp";
 import Job from "../addPost/Job";
+import Accommodation from "../addPost/Accommodation";
 
 export const tabs={
     "Home":{
@@ -20,7 +21,7 @@ export const tabs={
     "Post":{
         name:"Post",
         url:"/post",
-        file:Job
+        file:Accommodation
     },
     "About":{
         name:"About",
