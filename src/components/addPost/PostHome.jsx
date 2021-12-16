@@ -58,10 +58,10 @@ export default function PostHome(){
         {service !==null && service !==undefined ? 
         service === 'Accommodation' ? <Acommodation accommodationData={accommodationData}/>:
         service === 'Job' ? <Job jobData={jobData}/>:
-        service === 'Other Service' ? null://<OtherService otherServiceData={otherServiceData}/>:
+        service === 'Other Service' ? <OtherService otherServiceData={otherServiceData}/>:
         service === 'Product' ? <Product productData={productData}/>:
-        // service === 'Q and A' ? <QandA qAndAData={qAndAData}/>:null
-        service === 'Q and A' ? null:null
+        service === 'Q and A' ? <QandA qAndAData={qAndAData}/>:null
+        //service === 'Q and A' ? null:null
         :null}
         </Grid>
         </Grid>
