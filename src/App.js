@@ -6,7 +6,7 @@ import {BrowserRouter as Router,Route,Switch,Redirect} from 'react-router-dom'
 
 export const UserInfoContext = createContext()
 
-const initialState = {"userId":"1234"}
+const initialState = {"userId":""}
 
 const reducer =(state,action) =>{
   switch(action.type){

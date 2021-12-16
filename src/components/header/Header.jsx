@@ -24,12 +24,39 @@ function Header(props){
     const userInfoContext = useContext(UserInfoContext)
     const [isAvatarClick,setIsAvatarClick]=useState(false);
     const [isLogin,setIsLogin]=useState(false);
+    const [feed,setFeed]=useState('No data');
     useEffect(()=>{
         //userInfoContext.userInfoDispatch({type:'userState',payload:{"userId":"4321"}})
         setIsLogin(userInfoContext.userInfoState.userId!=="")
         },[userInfoContext.userInfoState.userId]
         )
-
+        let feedUpdate = ()=>{
+            console.log(`repeat`)
+            fetch('https://0gjep271aj.execute-api.us-east-1.amazonaws.com/default/feedLambda',{
+              method:'GET',
+              // headers: {
+              //     'Access-Control-Allow-Origin': '*' // changed this
+              // },
+          }).then((response)=>{
+              response.json()
+          .then(data=>{
+              console.log(data.data)
+              let populateFeed=""
+              if(data.data!=='No data'){
+                  console.log('inside if ')
+                  data.data.map((value,index)=>{
+                    populateFeed = populateFeed.concat(" ",index+1);
+                    populateFeed = populateFeed.concat(" ",value)
+                    console.log(populateFeed)
+                  })
+                  setFeed(populateFeed)
+              }
+              else{
+                  setFeed(data.data)
+              }
+          })})
+      }
+      
     return(
     <ThemeProvider theme={theme}>
          {isLogin? 
@@ -67,9 +94,11 @@ function Header(props){
             </Grid>
             </Grid>
         </Grid> 
+        {isLogin?
         <Grid>
-                <Typography>Hi Sathish</Typography>
-            </Grid>
+                <Typography>{feed}</Typography>
+                <Button onClick={feedUpdate}>Get feed</Button>
+            </Grid>:null}
         {isAvatarClick?
        <Grid container justifyContent="flex-end">
            <Button variant="contained" onClick={()=>{
