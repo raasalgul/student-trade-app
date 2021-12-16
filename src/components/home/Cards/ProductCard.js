@@ -7,6 +7,8 @@ import { useState } from "react";
 import { TextField } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import CancelIcon from '@mui/icons-material/Cancel';
+import {checkoutInfo} from "../../constants/Constant"
+import authHeader from "../../services/auth-header"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -60,17 +62,42 @@ const useStyles = makeStyles((theme) => ({
           <h1><span className={classes.heading}>Price: </span>{props.price}</h1>
           {!isIntrested?
           <Button variant="contained"
-          onClick={()=>{setIsIntrested(true)}}
+          onClick={()=>{
+            // setIsIntrested(true)
+               let requestData ={
+              "name":props.name,
+              "hash":props.hash,
+            };
+            fetch(`${checkoutInfo}/old-product`,
+            { 
+                method: 'POST', 
+              mode: 'cors', 
+              cache: 'no-cache', 
+              credentials: 'same-origin', 
+              redirect: 'follow',
+              referrerPolicy: 'no-referrer', 
+              body: JSON.stringify(requestData) ,
+              headers: {...authHeader(),'Content-Type':'application/json'} })
+
+            .then((response) => {
+              return response.json();
+            })
+            .then((myJson) => {
+            
+            })
+
+            setIsIntrested(false)
+          }}
           style={{backgroundColor: theme.palette.secondary.main}}
           >
               Intrested
         </Button>
         :
         <Grid container>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
           <TextField ></TextField>
-          </Grid>
-          <Grid item container spacing={3} justifyContent="center">
+          </Grid> */}
+          {/* <Grid item container spacing={3} justifyContent="center">
             <Grid item>
           <Button variant="contained"
           onClick={()=>{setIsIntrested(false)}}
@@ -85,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
           endIcon={<SendIcon />}
           >Email</Button>
           </Grid>
-          </Grid>
+          </Grid> */}
         </Grid>
         }
           </Grid>

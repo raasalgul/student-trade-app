@@ -47,7 +47,7 @@ export default function Job(){
               { console.log(value)}
              return (<JobCard 
               duration = {value.duration}
-              availablity = {value.Availability}
+              availability = {value.Availability}
               picture = {value.picture}
               salary = {value.salary}
               institution = {value.institution}

@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "../themes/Theme"
 import React, { useState,useEffect } from 'react';
-import Acommodation from './Acommodation'
+import Acommodation from './Accommodation'
 import Job from "./Job"
 import OtherService from "./OtherService"
 import Product from "./Product"
@@ -10,7 +10,7 @@ import QandA from "./QandA"
 import { Select,MenuItem } from '@material-ui/core';
 import {postInfo} from '../constants/Constant'
 import authHeader from "../services/auth-header"
-export default function Home(){
+export default function PostHome(){
 
     const [service,setService] =useState('Accommodation')
     const [accommodationData,setAccommodationData] = useState([])

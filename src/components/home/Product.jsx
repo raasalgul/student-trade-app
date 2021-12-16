@@ -19,6 +19,7 @@ export default function Product(props){
     institution={value.institution}
     price={value.price}
     picture={value.picture}
+    hash={value.hash}
     />
        }):null
       }
