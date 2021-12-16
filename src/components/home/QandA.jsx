@@ -19,6 +19,8 @@ export default function QandA(props){
     institution={value.institution}
     Availability={value.Availability}
     picture={value.picture}
+    email = {value.email}
+    hash = {value.hash}
     />
        }):null
       }

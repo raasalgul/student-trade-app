@@ -3,12 +3,13 @@ import { Paper,Grid, Button } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "../../themes/Theme"
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { TextField } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import CancelIcon from '@mui/icons-material/Cancel';
 import {checkoutInfo} from "../../constants/Constant"
 import authHeader from "../../services/auth-header"
+import { UserInfoContext } from "../../../App"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -43,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
     const classes = useStyles();
     const [isIntrested,setIsIntrested] = useState(false);
     const [emailBody,setEmailBody] = useState('');
+    const userInfoContext = useContext(UserInfoContext)
+    let contextData={"email":userInfoContext.userInfoState.name,
+    "institution":userInfoContext.userInfoState.institution}
+
     return (
       <ThemeProvider theme={theme}>
         <Paper className={classes.paper}
@@ -101,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
             let requestData ={
               "name":props.name,
               "hash":props.hash,
-              "email":props.email,
+              "email":contextData.email,
               "emailBody": emailBody
             };
             fetch(`${checkoutInfo}/accommodation-cart`,

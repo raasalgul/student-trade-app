@@ -3,10 +3,13 @@ import { Paper,Grid, Button } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "../../themes/Theme"
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { TextField } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import CancelIcon from '@mui/icons-material/Cancel';
+import {checkoutInfo} from "../../constants/Constant"
+import authHeader from "../../services/auth-header"
+import { UserInfoContext } from "../../../App"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
   export default function Card(props)  {
     const classes = useStyles();
     const [isIntrested,setIsIntrested] = useState(false);
+    const [emailBody,setEmailBody] = useState('');
+    const userInfoContext = useContext(UserInfoContext)
+    let contextData={"email":userInfoContext.userInfoState.name,
+    "institution":userInfoContext.userInfoState.institution}
+
     return (
       <ThemeProvider theme={theme}>
         <Paper className={classes.paper}
@@ -69,7 +77,9 @@ const useStyles = makeStyles((theme) => ({
         :
         <Grid container>
           <Grid item xs={12}>
-          <TextField ></TextField>
+          <TextField onChange={(e)=>{
+              setEmailBody(e.target.value)
+          }}></TextField>
           </Grid>
           <Grid item container spacing={3} justifyContent="center">
             <Grid item>
@@ -81,7 +91,32 @@ const useStyles = makeStyles((theme) => ({
           </Grid>
           <Grid item>
           <Button variant="contained"
-          onClick={()=>{setIsIntrested(false)}}
+          onClick={()=>{
+            let requestData ={
+              "name":props.name,
+              "hash":props.hash,
+              "email":contextData.email,
+              "emailBody": emailBody
+            };
+            console.log(`requestData ${requestData}`)
+            fetch(`${checkoutInfo}/otherServices-cart`,
+            { 
+                method: 'POST', 
+              mode: 'cors', 
+              cache: 'no-cache', 
+              credentials: 'same-origin', 
+              redirect: 'follow',
+              referrerPolicy: 'no-referrer', 
+              body: JSON.stringify(requestData) ,
+              headers: {...authHeader(),'Content-Type':'application/json'} })
+
+            .then((response) => {
+              return response.json();
+            })
+            .then((myJson) => {
+            
+            })
+            setIsIntrested(false)}}
           style={{backgroundColor: theme.palette.secondary.main}}
           endIcon={<SendIcon />}
           >Email</Button>

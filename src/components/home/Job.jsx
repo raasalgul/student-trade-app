@@ -20,6 +20,9 @@ export default function Job(props){
     location={value.location}
     availability={value.Availability}
     salary={value.salary}
+    picture={value.picture}
+    email = {value.email}
+    hash = {value.hash}
     />
        }):null
       }

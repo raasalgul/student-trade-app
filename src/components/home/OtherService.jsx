@@ -20,6 +20,8 @@ export default function OtherService(props){
     Availability={value.Availability}
     price={value.price}
     picture={value.picture}
+    email = {value.email}
+    hash = {value.hash}
     />
        }):null
       }
