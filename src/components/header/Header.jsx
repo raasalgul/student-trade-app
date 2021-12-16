@@ -46,7 +46,7 @@ function Header(props){
                   console.log('inside if ')
                   data.data.map((value,index)=>{
                     populateFeed = populateFeed.concat(" ",index+1);
-                    populateFeed = populateFeed.concat(" ",value)
+                    populateFeed = populateFeed.concat(") ",value)
                     console.log(populateFeed)
                   })
                   setFeed(populateFeed)

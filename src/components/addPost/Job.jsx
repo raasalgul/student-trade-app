@@ -6,11 +6,25 @@ import {postInfo} from "../constants/Constant"
 import { Grid } from '@mui/material';
 import JobCard from "./Cards/JobCard"
 import { UserInfoContext } from "../../App"
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Button } from '@mui/material';
+
+
+const useStyles = makeStyles((theme) => ({
+  icon:{
+    '& .MuiButton-endIcon':{
+      marginLeft: 0,
+      marginRight: 0
+    }
+  }
+  }))
 
 export default function Job(){
   const [data,setData]= useState([]
   );
   const userInfoContext = useContext(UserInfoContext)
+
+  const classes =useStyles();
 
   useEffect(()=>{
     // fetch(`${userInfo}/get-postInfo`,{ headers: authHeader() }).then((response) => {
@@ -57,6 +71,20 @@ export default function Job(){
               />)
           })
             }
+               <Button variant="contained"
+          onClick={()=>{
+            let val =[... data]
+
+            let newAdd = {
+
+            }
+            val.push(newAdd)
+            setData(val)
+          }}
+          className={classes.icon}
+          style={{backgroundColor: theme.palette.secondary.main}}
+          endIcon={<AddCircleIcon />}
+          ></Button>
         </Grid>
          </Grid>
         </ThemeProvider>)
